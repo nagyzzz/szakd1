@@ -11,15 +11,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(550, 600)
+class Ui_NmapWindow(object):
+    def setupUi(self, NmapWindow):
+        NmapWindow.setObjectName("NmapWindow")
+        NmapWindow.resize(550, 600)
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(11)
-        MainWindow.setFont(font)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        NmapWindow.setFont(font)
+        self.centralwidget = QtWidgets.QWidget(NmapWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_nmap = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_nmap.setGeometry(QtCore.QRect(140, 40, 221, 51))
@@ -48,33 +48,33 @@ class Ui_MainWindow(object):
         self.textEdit_target_ip.setToolTip("")
         self.textEdit_target_ip.setStatusTip("")
         self.textEdit_target_ip.setObjectName("textEdit_target_ip")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        NmapWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(NmapWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 550, 29))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        NmapWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(NmapWindow)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        NmapWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        self.pushButton_quit.clicked.connect(MainWindow.close) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(NmapWindow)
+        self.pushButton_quit.clicked.connect(NmapWindow.close) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(NmapWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, NmapWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_nmap.setText(_translate("MainWindow", "Run Nmap"))
-        self.pushButton_quit.setText(_translate("MainWindow", "quit"))
-        self.checkBox_sC.setText(_translate("MainWindow", "-sC"))
-        self.checkBox_sS.setText(_translate("MainWindow", "-sS"))
+        NmapWindow.setWindowTitle(_translate("NmapWindow", "MainWindow"))
+        self.pushButton_nmap.setText(_translate("NmapWindow", "Run Nmap"))
+        self.pushButton_quit.setText(_translate("NmapWindow", "quit"))
+        self.checkBox_sC.setText(_translate("NmapWindow", "-sC"))
+        self.checkBox_sS.setText(_translate("NmapWindow", "-sS"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    NmapWindow = QtWidgets.QMainWindow()
+    ui = Ui_NmapWindow()
+    ui.setupUi(NmapWindow)
+    NmapWindow.show()
     sys.exit(app.exec_())

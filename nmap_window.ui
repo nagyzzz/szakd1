@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>NmapWindow</class>
+ <widget class="QMainWindow" name="NmapWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -138,7 +138,7 @@
   <connection>
    <sender>pushButton_quit</sender>
    <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
+   <receiver>NmapWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
