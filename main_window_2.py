@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 
-from nmap_window import Ui_NmapWindow
+from nmap_window import Ui_NmapWindow #masodik ablak megnyitasa
 
 
 class Ui_MainWindow(object):
@@ -22,6 +22,10 @@ class Ui_MainWindow(object):
         self.ui.setupUi(self.window)
         self.window.show()
 
+    def closeEvent(self, event):
+        for window in QApplication.topLevelWidgets():
+            window.close()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(600, 700)
@@ -31,7 +35,7 @@ class Ui_MainWindow(object):
         MainWindow.setFont(font)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton_nmap = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.openNmap())
+        self.pushButton_nmap = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.openNmap()) #masodik ablak megnyitasa
         self.pushButton_nmap.setGeometry(QtCore.QRect(200, 150, 171, 61))
         self.pushButton_nmap.setObjectName("pushButton_nmap")
         self.pushButton_hashcat = QtWidgets.QPushButton(self.centralwidget)
