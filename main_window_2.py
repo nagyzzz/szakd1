@@ -24,8 +24,18 @@ class Ui_MainWindow(object):
 
     def closeEvent(self, event):
         for window in QApplication.topLevelWidgets():
-            window.close()
+            window.closeAllWindows()
 
+    """   
+    def closeEvent():
+        sys.exit(0)
+
+    """
+    """      
+    def closeEvent(self):
+        for window in QApplication.topLevelWidgets():
+            window.close()
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(600, 700)
@@ -60,7 +70,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.pushButton_quit.clicked.connect(MainWindow.close) # type: ignore
+        self.pushButton_quit.clicked.connect(MainWindow.closeEvent) # type: ignore
         #self.pushButton_nmap.clicked.connect(MainWindow.openNmap)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
