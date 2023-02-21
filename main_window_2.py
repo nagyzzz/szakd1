@@ -16,16 +16,19 @@ from nmap_window import Ui_NmapWindow #masodik ablak megnyitasa
 
 class Ui_MainWindow(object):
 
+    def __init__(self):
+        self.windows = [self]
+
     def openNmap(self):
-        self.window = QtWidgets.QMainWindow()
+        window = QtWidgets.QMainWindow()
         self.ui = Ui_NmapWindow()
-        self.ui.setupUi(self.window)
-        self.window.show()
+        self.ui.setupUi(window)
+        window.show()
+        self.windows.append(window)
 
-    def closeEvent(self, event):
-        for window in QApplication.topLevelWidgets():
-            window.closeAllWindows()
-
+    def close_all_windows(self):
+        for window in self.windows:
+            window.close()
     """   
     def closeEvent():
         sys.exit(0)
@@ -70,7 +73,8 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.pushButton_quit.clicked.connect(MainWindow.closeEvent) # type: ignore
+        #self.pushButton_quit.clicked.connect(MainWindow.closeEvent) # type: ignore
+        self.pushButton_quit.clicked.connect(self.close_all_windows)
         #self.pushButton_nmap.clicked.connect(MainWindow.openNmap)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
