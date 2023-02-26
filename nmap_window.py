@@ -4,15 +4,37 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_NmapWindow(object):
-
-    def __init__(self):
-       self.command = None
-
-    def futtatas(self, jelszo, parancslista): #a parancs meghívása
-        #sudoPasswd = None
+    """
+    def futtatas(self, jelszo, parancslista):  # a parancs meghívása
+        # sudoPasswd = None
         sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
         output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
         return output
+
+    """
+
+    def futtatas(self, jelszo, parancslista):  # a parancs meghívása
+        sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
+        output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
+        return output
+
+    """
+    def futtatas(self, jelszo, parancslista):
+        sudo_args = ["sudo", "-S", "-k"] + parancslista
+        with subprocess.Popen(sudo_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                              text=True) as proc:
+            out, err = proc.communicate(input=jelszo.encode())
+            if proc.returncode != 0:
+                raise subprocess.CalledProcessError(proc.returncode, sudo_args, err)
+            return out
+
+    """
+
+
+
+
+    def __init__(self):
+       self.command = None
 
     def setupUi(self, NmapWindow):
         NmapWindow.setObjectName("NmapWindow")
