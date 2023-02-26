@@ -5,10 +5,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_NmapWindow(object):
 
-    def futtatas(jelszo, parancslista): #a parancs meghívása
+    def __init__(self):
+       self.command = None
+
+    def futtatas(self, jelszo, parancslista): #a parancs meghívása
+        #sudoPasswd = None
         sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
         output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
         return output
+
     def setupUi(self, NmapWindow):
         NmapWindow.setObjectName("NmapWindow")
         NmapWindow.resize(550, 600)
@@ -53,14 +58,15 @@ class Ui_NmapWindow(object):
         self.statusbar = QtWidgets.QStatusBar(NmapWindow)
         self.statusbar.setObjectName("statusbar")
         NmapWindow.setStatusBar(self.statusbar)
-
         self.retranslateUi(NmapWindow)
         self.pushButton_quit.clicked.connect(NmapWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(NmapWindow)
-
-        command = "nmap" + str(self.textEdit_options) + str(self.textEdit_target_ip)
+        command = "nmap" + self.textEdit_options.toPlainText() + self.textEdit_target_ip.toPlainText()
         command = command.split()
         self.pushButton_nmap.clicked.connect(lambda: self.futtatas(self.textEdit_password.toPlainText(), command))
+        self.command
+
+
     def retranslateUi(self, NmapWindow):
         _translate = QtCore.QCoreApplication.translate
         NmapWindow.setWindowTitle(_translate("NmapWindow", "MainWindow"))
