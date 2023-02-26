@@ -13,11 +13,6 @@ from PyQt5.QtWidgets import QApplication
 
 from nmap_window import Ui_NmapWindow #masodik ablak megnyitasa
 
-
-def close():
-    print("close metódus meghívva")
-
-
 class Ui_MainWindow(object):
 
     def __init__(self):
@@ -29,12 +24,6 @@ class Ui_MainWindow(object):
         self.ui.setupUi(window)
         window.show()
         self.windows.append(window)
-    """
-    def closeEvent(self, event):
-        QApplication.closeAllWindows()
-        event.accept()
-
-    """
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
