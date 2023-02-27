@@ -1,9 +1,29 @@
 import subprocess
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QPushButton
 
 
 class Ui_NmapWindow(object):
+    pushButton_nmap: QPushButton
+
+    def futtatas(self, jelszo, parancslista):  # a parancs meghívása
+        # sudoPasswd = None
+        #print(jelszo)
+        #print(parancslista)
+        #print(self.textEdit_options.toPlainText())
+        #print(self.textEdit_target_ip.toPlainText())
+        #print(parancslista)
+        #print(["sudo", "-S", "-k"] + parancslista)
+        sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
+        output = subprocess.check_output(["sudo", "-k"] + parancslista, stdin=sudoPasswd.stdout)
+        return output
+
+    def command(self):
+        return "nmap" + Ui_NmapWindow.textEdit_options.toPlainText() + Ui_NmapWindow.textEdit_target_ip.toPlainText()
+
+
     """
     def futtatas(self, jelszo, parancslista):  # a parancs meghívása
         # sudoPasswd = None
@@ -12,12 +32,6 @@ class Ui_NmapWindow(object):
         return output
 
     """
-
-    def futtatas(self, jelszo, parancslista):  # a parancs meghívása
-        sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
-        output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
-        return output
-
     """
     def futtatas(self, jelszo, parancslista):
         sudo_args = ["sudo", "-S", "-k"] + parancslista
@@ -29,10 +43,6 @@ class Ui_NmapWindow(object):
             return out
 
     """
-
-
-
-
     def __init__(self):
        self.command = None
 
@@ -83,10 +93,15 @@ class Ui_NmapWindow(object):
         self.retranslateUi(NmapWindow)
         self.pushButton_quit.clicked.connect(NmapWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(NmapWindow)
-        command = "nmap" + self.textEdit_options.toPlainText() + self.textEdit_target_ip.toPlainText()
-        command = command.split()
-        self.pushButton_nmap.clicked.connect(lambda: self.futtatas(self.textEdit_password.toPlainText(), command))
         self.command
+        #self.command = ("nmap" + self.textEdit_options.toPlainText() + self.textEdit_target_ip.toPlainText())
+        #options = self.textEdit_options.toPlainText()
+        #target_ip = self.textEdit_target_ip.toPlainText()
+        #command = ("nmap" + options + target_ip)
+        #command = command.split()
+        #self.pushButton_nmap.clicked.connect(lambda: self.futtatas(self.textEdit_password.toPlainText(), command))
+        self.pushButton_nmap.clicked.connect(lambda: self.futtatas(self.textEdit_password.toPlainText(), self.command()))
+        #self.command
 
 
     def retranslateUi(self, NmapWindow):
