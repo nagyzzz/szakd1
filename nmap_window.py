@@ -17,12 +17,11 @@ class Ui_NmapWindow(object):
         #print(parancslista)
         #print(["sudo", "-S", "-k"] + parancslista)
         sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
-        output = subprocess.check_output(["sudo", "-k"] + parancslista, stdin=sudoPasswd.stdout)
+        output = subprocess.check_output(parancslista.split(), stdin=sudoPasswd.stdout)
         return output
 
     def command(self):
-        return "nmap" + Ui_NmapWindow.textEdit_options.toPlainText() + Ui_NmapWindow.textEdit_target_ip.toPlainText()
-
+        return "nmap " + self.textEdit_options.toPlainText() + " " + self.textEdit_target_ip.toPlainText()
 
     """
     def futtatas(self, jelszo, parancslista):  # a parancs meghívása
@@ -42,10 +41,11 @@ class Ui_NmapWindow(object):
                 raise subprocess.CalledProcessError(proc.returncode, sudo_args, err)
             return out
 
-    """
+    
     def __init__(self):
        self.command = None
 
+    """
     def setupUi(self, NmapWindow):
         NmapWindow.setObjectName("NmapWindow")
         NmapWindow.resize(550, 600)
@@ -93,7 +93,7 @@ class Ui_NmapWindow(object):
         self.retranslateUi(NmapWindow)
         self.pushButton_quit.clicked.connect(NmapWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(NmapWindow)
-        self.command
+
         #self.command = ("nmap" + self.textEdit_options.toPlainText() + self.textEdit_target_ip.toPlainText())
         #options = self.textEdit_options.toPlainText()
         #target_ip = self.textEdit_target_ip.toPlainText()
