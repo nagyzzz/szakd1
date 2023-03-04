@@ -16,6 +16,7 @@ class Ui_NmapWindow(object):
         #print(self.textEdit_target_ip.toPlainText())
         #print(parancslista)
         #print(["sudo", "-S", "-k"] + parancslista)
+        #sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
         sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
         output = subprocess.check_output(parancslista.split(), stdin=sudoPasswd.stdout)
         return output
