@@ -1,52 +1,40 @@
 import subprocess
-
+from typing import Any
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QPushButton
-
+from output_window import Ui_Output
 
 class Ui_NmapWindow(object):
     pushButton_nmap: QPushButton
 
     def futtatas(self, jelszo, parancslista):  # a parancs meghívása
-        # sudoPasswd = None
-        #print(jelszo)
-        #print(parancslista)
-        #print(self.textEdit_options.toPlainText())
-        #print(self.textEdit_target_ip.toPlainText())
-        #print(parancslista)
-        #print(["sudo", "-S", "-k"] + parancslista)
-        #sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
+        print(jelszo)
+        print(parancslista)
         sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
-        output = subprocess.check_output(parancslista.split(), stdin=sudoPasswd.stdout)
-        return output
-
-    def command(self):
-        return "nmap " + self.textEdit_options.toPlainText() + " " + self.textEdit_target_ip.toPlainText()
-
-    """
-    def futtatas(self, jelszo, parancslista):  # a parancs meghívása
-        # sudoPasswd = None
-        sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
+        parancslista = parancslista.split()
         output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
+        print(output)
+        """
+        output = str(output)
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_Output()
+        self.ui.label.setText(output)
+        self.ui = Ui_Output()
+        self.ui.setupUi(self.window)
+        self.window.show()
+        
+        def clicker(self):
+            thing = self.lineEdit.text()
+            # Assign thing to second window label
+            self.ui.label.setText(thing)
+
+        """
         return output
 
-    """
-    """
-    def futtatas(self, jelszo, parancslista):
-        sudo_args = ["sudo", "-S", "-k"] + parancslista
-        with subprocess.Popen(sudo_args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                              text=True) as proc:
-            out, err = proc.communicate(input=jelszo.encode())
-            if proc.returncode != 0:
-                raise subprocess.CalledProcessError(proc.returncode, sudo_args, err)
-            return out
-
-    
-    def __init__(self):
-       self.command = None
-
-    """
+    def command(self) -> object:
+        #return "nmap " + self.textEdit_options.toPlainText() + self.textEdit_target_ip.toPlainText()
+        return "nmap " + self.textEdit_target_ip.toPlainText()
     def setupUi(self, NmapWindow):
         NmapWindow.setObjectName("NmapWindow")
         NmapWindow.resize(550, 600)
