@@ -1,12 +1,14 @@
 import subprocess
-from typing import Any
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QPushButton
 from output_window import Ui_Output
 
 class Ui_NmapWindow(object):
     pushButton_nmap: QPushButton
+
+    def __init__(self):
+        self.ui = None
+        self.windows = [self]
 
     def futtatas(self, jelszo, parancslista):  # a parancs meghívása
         print(jelszo)
@@ -15,22 +17,25 @@ class Ui_NmapWindow(object):
         parancslista = parancslista.split()
         output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
         print(output)
-        """
+        #szoveg = print(output)
         output = str(output)
-        self.window = QtWidgets.QMainWindow()
+        self.openOutput(output)
+
+    def openOutput(self, szoveg=None):
+        window = QtWidgets.QMainWindow()
         self.ui = Ui_Output()
-        self.ui.label.setText(output)
-        self.ui = Ui_Output()
-        self.ui.setupUi(self.window)
-        self.window.show()
-        
+        self.ui.setupUi(window)
+        self.ui.textBrowser.setText(szoveg)
+        window.show()
+        self.windows.append(window)
+
+        """
         def clicker(self):
             thing = self.lineEdit.text()
             # Assign thing to second window label
             self.ui.label.setText(thing)
 
         """
-        return output
 
     def command(self) -> object:
         #return "nmap " + self.textEdit_options.toPlainText() + self.textEdit_target_ip.toPlainText()
@@ -110,3 +115,7 @@ if __name__ == "__main__":
     ui.setupUi(NmapWindow)
     NmapWindow.show()
     sys.exit(app.exec_())
+
+
+def output():
+    return None
