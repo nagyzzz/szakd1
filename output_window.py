@@ -7,10 +7,10 @@ class Ui_Output(object):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(600, 700)
+        MainWindow.resize(900, 700)
         font = QtGui.QFont()
         font.setFamily("Verdana")
-        font.setPointSize(14)
+        font.setPointSize(13)
         MainWindow.setFont(font)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -18,7 +18,7 @@ class Ui_Output(object):
         self.pushButton_quit.setGeometry(QtCore.QRect(190, 540, 181, 81))
         self.pushButton_quit.setObjectName("pushButton_quit")
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(50, 40, 471, 481))
+        self.textBrowser.setGeometry(QtCore.QRect(50, 40, 800, 480))
         self.textBrowser.setObjectName("textBrowser")
         #self.textBrowser.setText("output.setText")
         MainWindow.setCentralWidget(self.centralwidget)

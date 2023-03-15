@@ -19,13 +19,23 @@ class Ui_NmapWindow(object):
         print(output)
         #szoveg = print(output)
         output = str(output)
+        #output = output.splitlines()
         self.openOutput(output)
 
     def openOutput(self, szoveg=None):
+        szoveg = szoveg.splitlines()
+        szoveg = '\n'.join(szoveg)
+        """sz = ""
+        for s in szoveg:
+            sz = sz + 
+            sz = sz + s"""
+        #sz = szoveg.encode('utf-8')
         window = QtWidgets.QMainWindow()
         self.ui = Ui_Output()
         self.ui.setupUi(window)
         self.ui.textBrowser.setText(szoveg)
+        #self.ui.textBrowser.setText(szoveg.encode('utf-8').decode('utf-8'))
+        #self.ui.textBrowser.setText(str(szoveg.encode("utf-8")))
         window.show()
         self.windows.append(window)
 
