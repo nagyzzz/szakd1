@@ -2,8 +2,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
 
-from nmap_window import Ui_NmapWindow #masodik ablak megnyitasa
-
+from nmap_window2 import Ui_NmapWindow #nmap ablak megnyitasa
+from john_window import Ui_JohnWindow #john ablak megnyitasa
 class Ui_MainWindow(object):
 
     def __init__(self):
@@ -12,6 +12,13 @@ class Ui_MainWindow(object):
     def openNmap(self):
         window = QtWidgets.QMainWindow()
         self.ui = Ui_NmapWindow()
+        self.ui.setupUi(window)
+        window.show()
+        self.windows.append(window)
+
+    def openJohn(self):
+        window = QtWidgets.QMainWindow()
+        self.ui = Ui_JohnWindow()
         self.ui.setupUi(window)
         window.show()
         self.windows.append(window)
@@ -25,7 +32,7 @@ class Ui_MainWindow(object):
         MainWindow.setFont(font)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton_nmap = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.openNmap()) #masodik ablak megnyitasa
+        self.pushButton_nmap = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.openNmap()) #nmap ablak megnyitasa
         self.pushButton_nmap.setGeometry(QtCore.QRect(200, 150, 171, 61))
         self.pushButton_nmap.setObjectName("pushButton_nmap")
         self.pushButton_hashcat = QtWidgets.QPushButton(self.centralwidget)
@@ -34,7 +41,7 @@ class Ui_MainWindow(object):
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser.setGeometry(QtCore.QRect(140, 40, 291, 51))
         self.textBrowser.setObjectName("textBrowser")
-        self.pushButton_johntheripper = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_johntheripper = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.openJohn()) #john ablak megnyitasa
         self.pushButton_johntheripper.setGeometry(QtCore.QRect(180, 250, 221, 71))
         self.pushButton_johntheripper.setObjectName("pushButton_johntheripper")
         self.pushButton_quit = QtWidgets.QPushButton(self.centralwidget)

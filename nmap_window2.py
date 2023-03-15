@@ -40,8 +40,8 @@ class Ui_NmapWindow(object):
         self.windows.append(window)
 
     def command(self) -> object:
-        #return "nmap " + self.textEdit_options.toPlainText() + self.textEdit_target_ip.toPlainText()
-        return "nmap " + self.textEdit_target_ip.toPlainText()
+        return "nmap " + self.textEdit_options.toPlainText() + " " + self.textEdit_target_ip.toPlainText()
+        #return "nmap " + self.textEdit_target_ip.toPlainText()
     def setupUi(self, NmapWindow):
         NmapWindow.setObjectName("NmapWindow")
         NmapWindow.resize(550, 600)
