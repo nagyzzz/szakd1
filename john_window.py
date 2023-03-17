@@ -24,8 +24,11 @@ class Ui_JohnWindow(object):
             password_list_path, password_list_file = os.path.split(password_list_filename)
             if password_list_path is None:
                 print("Nem választottál")
-            print(password_list_path, password_list_file)
+            #print(password_list_path, password_list_file)
             self.textBrowser_password_list.setPlainText(password_list_filename)
+            pl = open(password_list_filename, "r")
+            print(pl.read())
+            pl.close()
             return password_list_path, password_list_file
         else:
             return None, None
@@ -35,11 +38,22 @@ class Ui_JohnWindow(object):
         dialog = QFileDialog()
         dialog.setDirectory(r'/home/kali')
         dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)
-        #dialog.setNameFilter("Text files (*.txt)")
-        dialog.setFilter("Text files (*.txt)")
+        dialog.setNameFilter("Text files (*.txt)")
         dialog.setViewMode(QFileDialog.ViewMode.List)
-        dialog.getOpenFileName()
-        target_filename = QFileDialog.getOpenFileName()
+        if dialog.exec_() == QDialog.Accepted:
+            target_file = dialog.selectedFiles()[0]
+            # Split the filename and path
+            target_file_path, target_file_name = os.path.split(target_file)
+            if target_file is None:
+                print("Nem választottál")
+            #print(password_list_path, password_list_file)
+            self.textBrowser_target_file.setPlainText(target_file)
+            tf = open(target_file, "r")
+            print(tf.read())
+            tf.close()
+            return target_file_path, target_file_name
+        else:
+            return None, None
     def setupUi(self, JohnWindow):
         JohnWindow.setObjectName("JohnWindow")
         JohnWindow.resize(551, 538)
@@ -53,9 +67,9 @@ class Ui_JohnWindow(object):
         target_filepath = None
         self.centralwidget = QtWidgets.QWidget(JohnWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton_nmap = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_nmap.setGeometry(QtCore.QRect(140, 40, 221, 51))
-        self.pushButton_nmap.setObjectName("pushButton_nmap")
+        self.pushButton_john = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_john.setGeometry(QtCore.QRect(140, 40, 221, 51))
+        self.pushButton_john.setObjectName("pushButton_nmap")
         self.pushButton_quit = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_quit.setGeometry(QtCore.QRect(170, 400, 131, 51))
         self.pushButton_quit.setObjectName("pushButton_quit")
@@ -102,10 +116,13 @@ class Ui_JohnWindow(object):
         self.pushButton_quit.clicked.connect(JohnWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(JohnWindow)
 
+        self.pushButton_john.clicked.connect(
+            lambda: self.futtatas(self.textEdit_password.toPlainText(), self.command()))
+
     def retranslateUi(self, JohnWindow):
         _translate = QtCore.QCoreApplication.translate
         JohnWindow.setWindowTitle(_translate("JohnWindow", "MainWindow"))
-        self.pushButton_nmap.setText(_translate("JohnWindow", "Run John"))
+        self.pushButton_john.setText(_translate("JohnWindow", "Run John"))
         self.pushButton_quit.setText(_translate("JohnWindow", "quit"))
         self.label.setText(_translate("JohnWindow", "options:"))
         self.label_2.setText(_translate("JohnWindow", "jelszó lista (pl: rockyou.txt):"))
