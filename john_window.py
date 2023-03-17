@@ -25,6 +25,7 @@ class Ui_JohnWindow(object):
             if password_list_path is None:
                 print("Nem választottál")
             print(password_list_path, password_list_file)
+            self.textBrowser_password_list.setPlainText(password_list_filename)
             return password_list_path, password_list_file
         else:
             return None, None
@@ -81,7 +82,7 @@ class Ui_JohnWindow(object):
         self.textBrowser_password_list = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser_password_list.setGeometry(QtCore.QRect(180, 220, 321, 51))
         self.textBrowser_password_list.setObjectName("textBrowser_password_list")
-        self.textBrowser_password_list.setPlainText(password_list_filename)
+        #self.textBrowser_password_list.setPlainText(password_list_filename)
         self.textBrowser_target_file = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser_target_file.setGeometry(QtCore.QRect(180, 300, 321, 51))
         self.textBrowser_target_file.setObjectName("textBrowser_target_file")
