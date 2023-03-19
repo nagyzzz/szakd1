@@ -19,26 +19,16 @@ class Ui_JohnWindow(object):
 
 
     def futtatas(self, parancslista):  # a parancs meghívása
-        #print(jelszo)
         print(parancslista)
-        #sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
-        #parancslista = parancslista.split()
         process = subprocess.Popen(["john", parancslista], stdout=subprocess.PIPE)
         output = process.communicate()
         print(output)
-        #szoveg = print(output)
         output = str(output)
-        #output = output.splitlines()
         self.openOutput(output)
 
     def openOutput(self, szoveg=None):
         szoveg = szoveg.splitlines()
         szoveg = '\n'.join(szoveg)
-        """sz = ""
-        for s in szoveg:
-            sz = sz + 
-            sz = sz + s"""
-        #sz = szoveg.encode('utf-8')
         window = QtWidgets.QMainWindow()
         self.ui = Ui_Output()
         self.ui.setupUi(window)
@@ -47,10 +37,7 @@ class Ui_JohnWindow(object):
         #self.ui.textBrowser.setText(str(szoveg.encode("utf-8")))
         window.show()
         self.windows.append(window)
-    """
-    def command(self, password_list_filename) -> object:
-        return "john " + self.textEdit_options.toPlainText() + " " + password_list_filename
-    """
+
     def open_file_dialog_password_list(self):
         dialog = QFileDialog()
         dialog.setDirectory(r'/home/kali')
@@ -63,7 +50,6 @@ class Ui_JohnWindow(object):
             password_list_path, password_list_file = os.path.split(password_list_filename)
             if password_list_path is None:
                 print("Nem választottál")
-            #print(password_list_path, password_list_file)
             self.textBrowser_password_list.setPlainText(password_list_filename)
             pl = open(password_list_filename, "r")
             print(pl.read())
@@ -85,7 +71,6 @@ class Ui_JohnWindow(object):
             target_file_path, target_file_name = os.path.split(target_file)
             if target_file is None:
                 print("Nem választottál")
-            #print(password_list_path, password_list_file)
             self.textBrowser_target_file.setPlainText(target_file)
             tf = open(target_file, "r")
             print(tf.read())
@@ -101,9 +86,7 @@ class Ui_JohnWindow(object):
         font.setPointSize(11)
         JohnWindow.setFont(font)
         password_list_filename = ""
-        password_list_filepath = None
         target_filename = ""
-        target_filepath = None
         self.centralwidget = QtWidgets.QWidget(JohnWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_john = QtWidgets.QPushButton(self.centralwidget)
