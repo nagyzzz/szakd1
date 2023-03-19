@@ -11,8 +11,8 @@ class Ui_NmapWindow(object):
         self.windows = [self]
 
     def futtatas(self, jelszo, parancslista):  # a parancs meghívása
-        print(jelszo)
-        print(parancslista)
+        #print(jelszo)
+        #print(parancslista)
         sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
         parancslista = parancslista.split()
         output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
@@ -25,10 +25,6 @@ class Ui_NmapWindow(object):
     def openOutput(self, szoveg=None):
         szoveg = szoveg.splitlines()
         szoveg = '\n'.join(szoveg)
-        """sz = ""
-        for s in szoveg:
-            sz = sz + 
-            sz = sz + s"""
         #sz = szoveg.encode('utf-8')
         window = QtWidgets.QMainWindow()
         self.ui = Ui_Output()
@@ -40,7 +36,13 @@ class Ui_NmapWindow(object):
         self.windows.append(window)
 
     def command(self) -> object:
-        return "nmap " + self.textEdit_options.toPlainText() + " " + self.textEdit_target_ip.toPlainText()
+        sC = ""
+        sS = ""
+        if self.checkBox_sC.isChecked():
+            sC = "-sC "
+        if self.checkBox_sS.isChecked():
+            sS = "-sS "
+        return "nmap " + sC + sS + self.textEdit_options.toPlainText() + " " + self.textEdit_target_ip.toPlainText()
         #return "nmap " + self.textEdit_target_ip.toPlainText()
     def setupUi(self, NmapWindow):
         NmapWindow.setObjectName("NmapWindow")

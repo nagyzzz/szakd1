@@ -19,7 +19,7 @@ class Ui_JohnWindow(object):
 
 
     def futtatas(self, parancslista):  # a parancs meghívása
-        print(parancslista)
+        #print(parancslista)
         process = subprocess.Popen(["john", parancslista], stdout=subprocess.PIPE)
         output = process.communicate()
         print(output)
