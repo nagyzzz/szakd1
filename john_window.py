@@ -1,17 +1,56 @@
 import os
+import subprocess
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDir
 from PyQt5.QtWidgets import QFileDialog, QPushButton, QDialog
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication
+
+from output_window import Ui_Output
+
+
 class Ui_JohnWindow(object):
     password_list_filename = None
     target_filename = None
     def __init__(self):
+        self.windows = [self]
         self.textBrowser_target_file = None
 
 
+    def futtatas(self, parancslista):  # a parancs meghívása
+        #print(jelszo)
+        print(parancslista)
+        #sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
+        #parancslista = parancslista.split()
+        process = subprocess.Popen(["john", parancslista], stdout=subprocess.PIPE)
+        output = process.communicate()
+        print(output)
+        #szoveg = print(output)
+        output = str(output)
+        #output = output.splitlines()
+        self.openOutput(output)
+
+    def openOutput(self, szoveg=None):
+        szoveg = szoveg.splitlines()
+        szoveg = '\n'.join(szoveg)
+        """sz = ""
+        for s in szoveg:
+            sz = sz + 
+            sz = sz + s"""
+        #sz = szoveg.encode('utf-8')
+        window = QtWidgets.QMainWindow()
+        self.ui = Ui_Output()
+        self.ui.setupUi(window)
+        self.ui.textBrowser.setText(szoveg)
+        #self.ui.textBrowser.setText(szoveg.encode('utf-8').decode('utf-8'))
+        #self.ui.textBrowser.setText(str(szoveg.encode("utf-8")))
+        window.show()
+        self.windows.append(window)
+    """
+    def command(self, password_list_filename) -> object:
+        return "john " + self.textEdit_options.toPlainText() + " " + password_list_filename
+    """
     def open_file_dialog_password_list(self):
         dialog = QFileDialog()
         dialog.setDirectory(r'/home/kali')
@@ -28,7 +67,7 @@ class Ui_JohnWindow(object):
             self.textBrowser_password_list.setPlainText(password_list_filename)
             pl = open(password_list_filename, "r")
             print(pl.read())
-            pl.close()
+            #pl.close()
             return password_list_path, password_list_file
         else:
             return None, None
@@ -50,7 +89,7 @@ class Ui_JohnWindow(object):
             self.textBrowser_target_file.setPlainText(target_file)
             tf = open(target_file, "r")
             print(tf.read())
-            tf.close()
+            #tf.close()
             return target_file_path, target_file_name
         else:
             return None, None
@@ -73,11 +112,11 @@ class Ui_JohnWindow(object):
         self.pushButton_quit = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_quit.setGeometry(QtCore.QRect(170, 400, 131, 51))
         self.pushButton_quit.setObjectName("pushButton_quit")
-        self.textEdit_password = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_password.setGeometry(QtCore.QRect(60, 140, 441, 41))
-        self.textEdit_password.setToolTip("")
-        self.textEdit_password.setStatusTip("")
-        self.textEdit_password.setObjectName("textEdit_password")
+        self.textEdit_options = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_options.setGeometry(QtCore.QRect(60, 140, 441, 41))
+        self.textEdit_options.setToolTip("")
+        self.textEdit_options.setStatusTip("")
+        self.textEdit_options.setObjectName("textEdit_password")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(60, 110, 151, 31))
         self.label.setObjectName("label")
@@ -117,7 +156,7 @@ class Ui_JohnWindow(object):
         QtCore.QMetaObject.connectSlotsByName(JohnWindow)
 
         self.pushButton_john.clicked.connect(
-            lambda: self.futtatas(self.textEdit_password.toPlainText(), self.command()))
+            lambda: self.futtatas(password_list_filename))
 
     def retranslateUi(self, JohnWindow):
         _translate = QtCore.QCoreApplication.translate
