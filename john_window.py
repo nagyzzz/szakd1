@@ -26,7 +26,7 @@ class Ui_JohnWindow(object):
         output = str(output)
         self.openOutput(output)
 
-    def openOutput(self, szoveg=None):
+    def openOutput(self, szoveg=None): #output ablak megnyitása
         szoveg = szoveg.splitlines()
         szoveg = '\n'.join(szoveg)
         window = QtWidgets.QMainWindow()
@@ -38,7 +38,7 @@ class Ui_JohnWindow(object):
         window.show()
         self.windows.append(window)
 
-    def open_file_dialog_password_list(self):
+    def open_file_dialog_password_list(self): #password list tallózás
         dialog = QFileDialog()
         dialog.setDirectory(r'/home/kali')
         dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)
@@ -59,7 +59,7 @@ class Ui_JohnWindow(object):
             return None, None
 
 
-    def open_file_dialog_target_file(self):
+    def open_file_dialog_target_file(self): #target file böngészés
         dialog = QFileDialog()
         dialog.setDirectory(r'/home/kali')
         dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)
@@ -132,10 +132,10 @@ class Ui_JohnWindow(object):
         self.statusbar.setObjectName("statusbar")
         JohnWindow.setStatusBar(self.statusbar)
 
-        self.pushButton_password_list.clicked.connect(self.open_file_dialog_password_list)
-        self.pushButton_target_file.clicked.connect(self.open_file_dialog_target_file)
+        self.pushButton_password_list.clicked.connect(self.open_file_dialog_password_list) #password list metódus megnyitása
+        self.pushButton_target_file.clicked.connect(self.open_file_dialog_target_file) #target file metódus megnyitása
         self.retranslateUi(JohnWindow)
-        self.pushButton_quit.clicked.connect(JohnWindow.close) # type: ignore
+        self.pushButton_quit.clicked.connect(JohnWindow.close) # john ablak bezárása
         QtCore.QMetaObject.connectSlotsByName(JohnWindow)
 
         self.pushButton_john.clicked.connect(

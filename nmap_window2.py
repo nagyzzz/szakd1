@@ -10,7 +10,7 @@ class Ui_NmapWindow(object):
         self.ui = None
         self.windows = [self]
 
-    def futtatas(self, jelszo, parancslista):  # a parancs meghívása
+    def futtatas(self, jelszo, parancslista):  #a parancs meghívása
         #print(jelszo)
         #print(parancslista)
         sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
@@ -22,7 +22,7 @@ class Ui_NmapWindow(object):
         #output = output.splitlines()
         self.openOutput(output)
 
-    def openOutput(self, szoveg=None):
+    def openOutput(self, szoveg=None): #a kimeneti ablak megnyitása
         szoveg = szoveg.splitlines()
         szoveg = '\n'.join(szoveg)
         #sz = szoveg.encode('utf-8')
@@ -35,7 +35,7 @@ class Ui_NmapWindow(object):
         window.show()
         self.windows.append(window)
 
-    def command(self) -> object:
+    def command(self) -> object: #a parancs összeállítása
         sC = ""
         sS = ""
         if self.checkBox_sC.isChecked():
@@ -103,7 +103,7 @@ class Ui_NmapWindow(object):
         QtCore.QMetaObject.connectSlotsByName(NmapWindow)
 
         self.pushButton_nmap.clicked.connect(
-            lambda: self.futtatas(self.textEdit_password.toPlainText(), self.command()))
+            lambda: self.futtatas(self.textEdit_password.toPlainText(), self.command())) #a parancs meghívása
 
     def retranslateUi(self, NmapWindow):
         _translate = QtCore.QCoreApplication.translate

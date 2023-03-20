@@ -1,22 +1,21 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication
-
-from nmap_window2 import Ui_NmapWindow #nmap ablak megnyitasa
-from john_window import Ui_JohnWindow #john ablak megnyitasa
+from nmap_window2 import Ui_NmapWindow
+from john_window import Ui_JohnWindow
 class Ui_MainWindow(object):
 
     def __init__(self):
         self.windows = [self]
 
-    def openNmap(self):
+    def openNmap(self): #nmap ablak megnyitását végző metódus
         window = QtWidgets.QMainWindow()
         self.ui = Ui_NmapWindow()
         self.ui.setupUi(window)
         window.show()
         self.windows.append(window)
 
-    def openJohn(self):
+    def openJohn(self): #john ablak megnyitását végző metódus
         window = QtWidgets.QMainWindow()
         self.ui = Ui_JohnWindow()
         self.ui.setupUi(window)
@@ -57,9 +56,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        #self.pushButton_quit.clicked.connect(MainWindow.closeEvent) # type: ignore
-        self.pushButton_quit.clicked.connect(QApplication.closeAllWindows)
-        #self.pushButton_nmap.clicked.connect(MainWindow.openNmap)
+        self.pushButton_quit.clicked.connect(QApplication.closeAllWindows) #quit gomb megnyomása bezárja az összes nyitott ablakot
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

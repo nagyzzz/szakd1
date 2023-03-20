@@ -24,7 +24,7 @@ class Ui_HashCatWindow(object):
         output = str(output)
         self.openOutput(output)
 
-    def openOutput(self, szoveg=None):
+    def openOutput(self, szoveg=None): #output ablak megnyitása
         szoveg = szoveg.splitlines()
         szoveg = '\n'.join(szoveg)
         window = QtWidgets.QMainWindow()
@@ -36,7 +36,7 @@ class Ui_HashCatWindow(object):
         window.show()
         self.windows.append(window)
 
-    def open_file_dialog_hashfile(self):
+    def open_file_dialog_hashfile(self): #hashfile kitallózása
         dialog = QFileDialog()
         dialog.setDirectory(r'/home/kali')
         dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)
@@ -57,7 +57,7 @@ class Ui_HashCatWindow(object):
             return None, None
 
 
-    def open_file_dialog_wordlist(self):
+    def open_file_dialog_wordlist(self): #wordlist file kitallózása
         dialog = QFileDialog()
         dialog.setDirectory(r'/home/kali')
         dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)
@@ -127,11 +127,11 @@ class Ui_HashCatWindow(object):
         self.statusbar.setObjectName("statusbar")
         HashCatWindow.setStatusBar(self.statusbar)
 
-        self.pushButton_browse_hashfile.clicked.connect(self.open_file_dialog_hashfile)
-        self.pushButton_browse_wordlist.clicked.connect(self.open_file_dialog_wordlist)
+        self.pushButton_browse_hashfile.clicked.connect(self.open_file_dialog_hashfile) #hashfile tallózás megnyitása
+        self.pushButton_browse_wordlist.clicked.connect(self.open_file_dialog_wordlist) #wordlist tallózás megnyitása
 
         self.pushButton_hashcat.clicked.connect(
-            lambda: self.futtatas(wordlist_filename))
+            lambda: self.futtatas(wordlist_filename)) #parancs futtatás metódus meghívása
 
         self.retranslateUi(HashCatWindow)
         self.pushButton_quit.clicked.connect(HashCatWindow.close) # type: ignore
