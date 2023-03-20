@@ -23,7 +23,7 @@ class Ui_MainWindow(object):
         window.show()
         self.windows.append(window)
 
-    def openHash(self): #hash ablak megnyitását végző metódus
+    def openHashCat(self): #hashcat ablak megnyitását végző metódus
         window = QtWidgets.QMainWindow()
         self.ui = Ui_HashCatWindow()
         self.ui.setupUi(window)
@@ -42,11 +42,10 @@ class Ui_MainWindow(object):
         self.pushButton_nmap = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.openNmap()) #nmap ablak megnyitasa
         self.pushButton_nmap.setGeometry(QtCore.QRect(200, 150, 171, 61))
         self.pushButton_nmap.setObjectName("pushButton_nmap")
-        self.pushButton_hashcat = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_hashcat = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.openHashCat()) #hash ablak megnyitasa
         self.pushButton_hashcat.setGeometry(QtCore.QRect(200, 360, 181, 81))
         self.pushButton_hashcat.setObjectName("pushButton_hashcat")
-        self.pushButton_hashcat = QtWidgets.QPushButton(self.centralwidget,
-                                                              clicked=lambda: self.openHash))  # john ablak megnyitasa
+
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser.setGeometry(QtCore.QRect(140, 40, 291, 51))
         self.textBrowser.setObjectName("textBrowser")
