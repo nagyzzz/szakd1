@@ -1,13 +1,23 @@
-
+import self as self
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QLabel, QGridLayout
 from nmap_window2 import Ui_NmapWindow
 from john_window import Ui_JohnWindow
 from hash_window import Ui_HashCatWindow
+from PyQt5.QtGui import QPixmap
 class Ui_MainWindow(object):
 
     def __init__(self):
         self.windows = [self]
+        #self.im = QPixmap("./peakpx.jpg")
+        #self.label = QLabel()
+        #self.label.setPixmap(self.im)
+
+        #label = QLabel()
+        #pixmap = QPixmap('peakpx.jpg')
+        #label.setPixmap(pixmap)
+        #self.setCentralWidget(label)
+        #self.resize(pixmap.width(), pixmap.height())
 
     def openNmap(self): #nmap ablak megnyitását végző metódus
         window = QtWidgets.QMainWindow()

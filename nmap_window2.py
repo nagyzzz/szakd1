@@ -22,10 +22,9 @@ class Ui_NmapWindow(object):
         #output = output.splitlines()
         self.openOutput(output)
 
-    def openOutput(self, szoveg=None): #a kimeneti ablak megnyitása
+    def openOutput(self, szoveg=None): #output ablak megnyitása
         szoveg = szoveg.splitlines()
         szoveg = '\n'.join(szoveg)
-        #sz = szoveg.encode('utf-8')
         window = QtWidgets.QMainWindow()
         self.ui = Ui_Output()
         self.ui.setupUi(window)
@@ -34,6 +33,7 @@ class Ui_NmapWindow(object):
         #self.ui.textBrowser.setText(str(szoveg.encode("utf-8")))
         window.show()
         self.windows.append(window)
+
 
     def command(self) -> object: #a parancs összeállítása
         sC = ""
