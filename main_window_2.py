@@ -9,6 +9,7 @@ class Ui_MainWindow(object):
 
     def __init__(self):
         self.windows = [self]
+        self.im = "./peakpx.jpg"  # Replace with the path to your image file
         #self.im = QPixmap("./peakpx.jpg")
         #self.label = QLabel()
         #self.label.setPixmap(self.im)
@@ -55,6 +56,12 @@ class Ui_MainWindow(object):
         self.pushButton_hashcat = QtWidgets.QPushButton(self.centralwidget, clicked = lambda: self.openHashCat()) #hash ablak megnyitasa
         self.pushButton_hashcat.setGeometry(QtCore.QRect(200, 360, 181, 81))
         self.pushButton_hashcat.setObjectName("pushButton_hashcat")
+
+        self.background_label = QLabel(MainWindow)
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 600, 700))  # Adjust the dimensions as needed
+        self.background_label.setPixmap(QPixmap(self.im))
+        self.background_label.setScaledContents(True)
+        self.background_label.lower()
 
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser.setGeometry(QtCore.QRect(140, 40, 291, 51))
