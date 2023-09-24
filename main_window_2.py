@@ -9,16 +9,7 @@ class Ui_MainWindow(object):
 
     def __init__(self):
         self.windows = [self]
-        self.im = "./peakpx.jpg"  # Replace with the path to your image file
-        #self.im = QPixmap("./peakpx.jpg")
-        #self.label = QLabel()
-        #self.label.setPixmap(self.im)
-
-        #label = QLabel()
-        #pixmap = QPixmap('peakpx.jpg')
-        #label.setPixmap(pixmap)
-        #self.setCentralWidget(label)
-        #self.resize(pixmap.width(), pixmap.height())
+        self.im = "./peakpx_main.jpg"
 
     def openNmap(self): #nmap ablak megnyitását végző metódus
         window = QtWidgets.QMainWindow()

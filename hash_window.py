@@ -5,8 +5,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDir
 from PyQt5.QtWidgets import QFileDialog, QPushButton, QDialog
 from pathlib import Path
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QLabel
 from output_window import Ui_Output
+from PyQt5.QtGui import QPixmap
 
 class Ui_HashCatWindow(object):
     wordlist_filename = ""
@@ -14,6 +15,7 @@ class Ui_HashCatWindow(object):
     def __init__(self):
         self.textBrowser_wordlist = None
         self.windows = [self]
+        self.im = "./peakpx_other.jpg"
 
 
     def futtatas(self, parancslista):  # a parancs meghívása
@@ -126,6 +128,12 @@ class Ui_HashCatWindow(object):
         self.statusbar = QtWidgets.QStatusBar(HashCatWindow)
         self.statusbar.setObjectName("statusbar")
         HashCatWindow.setStatusBar(self.statusbar)
+
+        self.background_label = QLabel(HashCatWindow)
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # Adjust the dimensions as needed
+        self.background_label.setPixmap(QPixmap(self.im))
+        self.background_label.setScaledContents(True)
+        self.background_label.lower()
 
         self.pushButton_browse_hashfile.clicked.connect(self.open_file_dialog_hashfile) #hashfile tallózás megnyitása
         self.pushButton_browse_wordlist.clicked.connect(self.open_file_dialog_wordlist) #wordlist tallózás megnyitása

@@ -5,7 +5,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QDir
 from PyQt5.QtWidgets import QFileDialog, QPushButton, QDialog
 from pathlib import Path
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QLabel
+from PyQt5.QtGui import QPixmap
 
 from output_window import Ui_Output
 
@@ -16,6 +17,7 @@ class Ui_JohnWindow(object):
     def __init__(self):
         self.windows = [self]
         self.textBrowser_target_file = None
+        self.im = "./peakpx_other.jpg"
 
 
     def futtatas(self, parancslista):  # a parancs meghívása
@@ -131,6 +133,12 @@ class Ui_JohnWindow(object):
         self.statusbar = QtWidgets.QStatusBar(JohnWindow)
         self.statusbar.setObjectName("statusbar")
         JohnWindow.setStatusBar(self.statusbar)
+
+        self.background_label = QLabel(JohnWindow)
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # Adjust the dimensions as needed
+        self.background_label.setPixmap(QPixmap(self.im))
+        self.background_label.setScaledContents(True)
+        self.background_label.lower()
 
         self.pushButton_password_list.clicked.connect(self.open_file_dialog_password_list) #password list metódus megnyitása
         self.pushButton_target_file.clicked.connect(self.open_file_dialog_target_file) #target file metódus megnyitása

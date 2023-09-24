@@ -1,7 +1,8 @@
 import subprocess
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QPushButton, QLabel
 from output_window import Ui_Output
+from PyQt5.QtGui import QPixmap
 
 class Ui_NmapWindow(object):
     pushButton_nmap: QPushButton
@@ -9,6 +10,7 @@ class Ui_NmapWindow(object):
     def __init__(self):
         self.ui = None
         self.windows = [self]
+        self.im = "./peakpx_other.jpg"
 
     def futtatas(self, jelszo, parancslista):  #a parancs meghívása
         #print(jelszo)
@@ -97,6 +99,12 @@ class Ui_NmapWindow(object):
         self.statusbar = QtWidgets.QStatusBar(NmapWindow)
         self.statusbar.setObjectName("statusbar")
         NmapWindow.setStatusBar(self.statusbar)
+
+        self.background_label = QLabel(NmapWindow)
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # Adjust the dimensions as needed
+        self.background_label.setPixmap(QPixmap(self.im))
+        self.background_label.setScaledContents(True)
+        self.background_label.lower()
 
         self.retranslateUi(NmapWindow)
         self.pushButton_quit.clicked.connect(NmapWindow.close) # type: ignore
