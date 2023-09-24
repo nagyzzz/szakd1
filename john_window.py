@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QFileDialog, QPushButton, QDialog
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication, QLabel
 from PyQt5.QtGui import QPixmap
-
+from PyQt5.QtGui import QColor
 from output_window import Ui_Output
 
 
@@ -15,6 +15,7 @@ class Ui_JohnWindow(object):
     password_list_filename = None
     target_filename = None
     def __init__(self):
+        self.setText = None
         self.windows = [self]
         self.textBrowser_target_file = None
         self.im = "./peakpx_other.jpg"
@@ -86,6 +87,7 @@ class Ui_JohnWindow(object):
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(11)
+        text_color = QColor(255, 255, 255)
         JohnWindow.setFont(font)
         password_list_filename = ""
         target_filename = ""
@@ -111,6 +113,11 @@ class Ui_JohnWindow(object):
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(60, 270, 151, 31))
         self.label_3.setObjectName("label_3")
+
+        self.label.setStyleSheet("color: {}".format(text_color.name()))
+        self.label_2.setStyleSheet("color: {}".format(text_color.name()))
+        self.label_3.setStyleSheet("color: {}".format(text_color.name()))
+
         self.pushButton_password_list = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_password_list.setGeometry(QtCore.QRect(60, 220, 111, 51))
         self.pushButton_password_list.setObjectName("pushButton_password_list")

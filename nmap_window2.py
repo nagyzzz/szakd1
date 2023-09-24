@@ -1,8 +1,9 @@
 import subprocess
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QPushButton, QLabel
+from PyQt5.QtWidgets import QPushButton, QLabel, QTextEdit, QCheckBox
 from output_window import Ui_Output
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QColor
+
 
 class Ui_NmapWindow(object):
     pushButton_nmap: QPushButton
@@ -48,11 +49,13 @@ class Ui_NmapWindow(object):
         #return "nmap " + self.textEdit_target_ip.toPlainText()
     def setupUi(self, NmapWindow):
         NmapWindow.setObjectName("NmapWindow")
-        NmapWindow.resize(550, 600)
+        NmapWindow.resize(551, 538)
         font = QtGui.QFont()
         font.setFamily("MS Sans Serif")
         font.setPointSize(11)
+        text_color = QColor(255, 255, 255)
         NmapWindow.setFont(font)
+
         self.centralwidget = QtWidgets.QWidget(NmapWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_nmap = QtWidgets.QPushButton(self.centralwidget)
@@ -91,6 +94,11 @@ class Ui_NmapWindow(object):
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(60, 270, 151, 31))
         self.label_3.setObjectName("label_3")
+
+        self.label.setStyleSheet("color: {}".format(text_color.name()))
+        self.label_2.setStyleSheet("color: {}".format(text_color.name()))
+        self.label_3.setStyleSheet("color: {}".format(text_color.name()))
+
         NmapWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(NmapWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 550, 29))
