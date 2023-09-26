@@ -6,6 +6,10 @@ from PyQt5.QtGui import QPixmap, QColor
 class Ui_Output(object):
     textBrowser: QTextBrowser
 
+    def __init__(self):
+        self.ui = None
+        self.windows = [self]
+        self.im = "./peakpx_other.jpg"
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(900, 700)
@@ -26,13 +30,13 @@ class Ui_Output(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        """
+
         self.background_label = QLabel(MainWindow)
         self.background_label.setGeometry(QtCore.QRect(0, 0, 900, 700))  # Adjust the dimensions as needed
         self.background_label.setPixmap(QPixmap(self.im))
         self.background_label.setScaledContents(True)
         self.background_label.lower()
-        """
+
         self.retranslateUi(MainWindow)
         self.pushButton_quit.clicked.connect(MainWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
