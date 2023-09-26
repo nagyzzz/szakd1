@@ -21,19 +21,25 @@ class Ui_NmapWindow(object):
         output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
         print(output)
         #szoveg = print(output)
-        output = str(output)
+        #output = str(output)
+        output = output.decode('utf-8')
         #output = output.splitlines()
         self.openOutput(output)
 
     def openOutput(self, szoveg=None): #output ablak megnyitása
-        szoveg = szoveg.splitlines()
-        szoveg = '\n'.join(szoveg)
+        #szoveg = szoveg.splitlines()
+        #szoveg = '\n'.join(szoveg)
         window = QtWidgets.QMainWindow()
         self.ui = Ui_Output()
         self.ui.setupUi(window)
         self.ui.textBrowser.setText(szoveg)
         #self.ui.textBrowser.setText(szoveg.encode('utf-8').decode('utf-8'))
+        #self.ui.textBrowser.setText(str(szoveg.encode('utf-8')))
         #self.ui.textBrowser.setText(str(szoveg.encode("utf-8")))
+        #self.ui.textBrowser.setText(str(szoveg.encode("ascii")))
+        normal_string = szoveg
+        self.ui.textBrowser.setText(normal_string)
+
         window.show()
         self.windows.append(window)
 

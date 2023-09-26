@@ -26,7 +26,7 @@ class Ui_JohnWindow(object):
         process = subprocess.Popen(["john", parancslista], stdout=subprocess.PIPE)
         output = process.communicate()
         print(output)
-        output = str(output)
+        output = output.decode('utf-8')
         self.openOutput(output)
 
     def openOutput(self, szoveg=None): #output ablak megnyitása

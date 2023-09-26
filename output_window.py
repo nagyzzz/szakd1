@@ -1,6 +1,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QTextBrowser
+from PyQt5.QtWidgets import QTextBrowser, QLabel
+from PyQt5.QtGui import QPixmap, QColor
 
 class Ui_Output(object):
     textBrowser: QTextBrowser
@@ -25,7 +26,13 @@ class Ui_Output(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
+        """
+        self.background_label = QLabel(MainWindow)
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 900, 700))  # Adjust the dimensions as needed
+        self.background_label.setPixmap(QPixmap(self.im))
+        self.background_label.setScaledContents(True)
+        self.background_label.lower()
+        """
         self.retranslateUi(MainWindow)
         self.pushButton_quit.clicked.connect(MainWindow.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
