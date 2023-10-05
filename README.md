@@ -20,7 +20,7 @@ A szükséges csomagok telepítéséhez a pip package manager [pip](https://pip.
 a Settings\Project\Python Interpreter menüpontban.
 
 ```bash
-pip install PyQt5 PyQt5-Qt5 PyQt5-sips PyQt5-stubs decorator self setuptools unicode wheel
+pip install PyQt5 PyQt5-Qt5 PyQt5-sip PyQt5-stubs decorator self setuptools unicode wheel
 ```
 
 ## Futtatás
