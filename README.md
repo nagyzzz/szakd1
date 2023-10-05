@@ -6,6 +6,15 @@ könnyebben áttekinthetővé válik.
 ## Kompatibilitás
 [Kali Linux](https://www.kali.org/), [Parrot OS](https://www.parrotsec.org/), vagy bármely más disztró melyen fut az [Nmap](https://nmap.org/), [HashCat](https://hashcat.net/hashcat/) és a [John The Ripper](https://www.openwall.com/john/)
 
+## Python
+A kód futtatásához a [Python](https://www.python.org/) 3.10 verzióját használtam, ezért ezt vagy egy újabbat ajánlok.
+
+```bash
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install python3 python3-pip
+```
+
 ## Szükséges csomagok telepítése
 A szükséges csomagok telepítéséhez a pip package manager [pip](https://pip.pypa.io/en/stable/) a javasolt, de lehet PyCharm-ből is,
 a Settings\Project\Python Interpreter menüpontban.
