@@ -25,11 +25,13 @@ class Ui_JohnWindow(object):
         #print(parancslista)
         process = subprocess.Popen(["john", parancslista], stdout=subprocess.PIPE)
         output = process.communicate()
-        print(output)
+        #print(output)
+        output = ''.join(output)
         output = output.decode('utf-8')
         self.openOutput(output)
 
     def openOutput(self, szoveg=None): #output ablak megnyitása
+        #szoveg = ''.join(szoveg)
         szoveg = szoveg.splitlines()
         szoveg = '\n'.join(szoveg)
         window = QtWidgets.QMainWindow()
@@ -55,7 +57,7 @@ class Ui_JohnWindow(object):
                 print("Nem választottál")
             self.textBrowser_password_list.setPlainText(password_list_filename)
             pl = open(password_list_filename, "r")
-            print(pl.read())
+            #print(pl.read())
             #pl.close()
             return password_list_path, password_list_file
         else:
@@ -76,7 +78,7 @@ class Ui_JohnWindow(object):
                 print("Nem választottál")
             self.textBrowser_target_file.setPlainText(target_file)
             tf = open(target_file, "r")
-            print(tf.read())
+            #print(tf.read())
             #tf.close()
             return target_file_path, target_file_name
         else:

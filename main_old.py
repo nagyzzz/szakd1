@@ -10,8 +10,8 @@ from PyQt5.uic.properties import QtWidgets
 
 import main
 
-Ui_MainWindow, baseClass = uic.loadUiType('main_window_2.ui')
-Ui_NmapWindow, baseClass = uic.loadUiType('nmap_window.ui')
+Ui_MainWindow, baseClass = uic.loadUiType('main.ui')
+Ui_NmapWindow, baseClass = uic.loadUiType('nmap_window_old.ui')
 #from nmap_window import Ui_NmapWindow
 #from main_window_2 import Ui_MainWindow
 

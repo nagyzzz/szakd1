@@ -1,7 +1,6 @@
-#import self as self
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QLabel, QGridLayout
-from nmap_window2 import Ui_NmapWindow
+from nmap_window import Ui_NmapWindow
 from john_window import Ui_JohnWindow
 from hash_window import Ui_HashCatWindow
 from PyQt5.QtGui import QPixmap
