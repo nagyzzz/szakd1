@@ -20,16 +20,42 @@ class Ui_JohnWindow(object):
         self.textBrowser_target_file = None
         self.im = "./peakpx_other.jpg"
 
-
-    def futtatas(self, parancslista):  # a parancs meghívása
-        #print(parancslista)
-        process = subprocess.Popen(["john", parancslista], stdout=subprocess.PIPE)
-        output = process.communicate()
-        #print(output)
-        output = ''.join(output)
+    def futtatas(self, parancslista):
+        parancslista = parancslista.split()
+        output = subprocess.check_output(parancslista)
+        print(output)
         output = output.decode('utf-8')
         self.openOutput(output)
 
+        """
+        command = ["john"], self.textEdit_options.toPlainText(),  ["--wordlist="] + password_list_filename, target_file
+        print(command)
+        try:
+            output = subprocess.check_output(command, stderr=subprocess.STDOUT, text=True)
+            self.openOutput(output)
+        except subprocess.CalledProcessError as e:
+            self.openOutput(e.output)
+
+        """
+    def command(self) -> object: #a parancs összeállítása
+        a = ""
+        if self.password_list_filename:
+            a = "--wordlist=" + self.password_list_filename
+
+        return "john " + self.textEdit_options.toPlainText() + a
+
+    """
+    def futtatas(self, psw, trg):  # a parancs meghívása
+        #print(parancslista)
+        #process = subprocess.Popen(["john " + self.textEdit_options.toPlainText()] + psw + " " + trg, stdout=subprocess.PIPE)
+        #output = process.communicate()
+        output = subprocess.check_output(["john", self.textEdit_options.toPlainText()], psw, trg)
+        #print(output)
+        #output = ''.join(output)
+        output = output.decode('utf-8')
+        self.openOutput(output)
+
+    """
     def openOutput(self, szoveg=None): #output ablak megnyitása
         #szoveg = ''.join(szoveg)
         szoveg = szoveg.splitlines()
@@ -156,7 +182,7 @@ class Ui_JohnWindow(object):
         QtCore.QMetaObject.connectSlotsByName(JohnWindow)
 
         self.pushButton_john.clicked.connect(
-            lambda: self.futtatas(password_list_filename))
+            lambda: self.futtatas(self.command())) #a parancs meghívása
 
     def retranslateUi(self, JohnWindow):
         _translate = QtCore.QCoreApplication.translate
