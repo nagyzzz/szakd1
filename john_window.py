@@ -30,9 +30,10 @@ class Ui_JohnWindow(object):
 
     def command(self) -> object: #a parancs összeállítása
         a = ""
+        print(self.password_list_filename)
         if self.password_list_filename is not None:
             a = "--wordlist=" + self.password_list_filename
-
+        print("john " + self.textEdit_options.toPlainText() + a)
         return "john " + self.textEdit_options.toPlainText() + a
 
 
@@ -59,15 +60,15 @@ class Ui_JohnWindow(object):
             password_list_filename = dialog.selectedFiles()[0]
             # Split the filename and path
             password_list_path, password_list_file = os.path.split(password_list_filename)
-            if password_list_path is None:
+            if password_list_filename is None:
                 print("Nem választottál")
             self.textBrowser_password_list.setPlainText(password_list_filename)
             pl = open(password_list_filename, "r")
             #print(pl.read())
             #pl.close()
-            return password_list_path, password_list_file
+            return password_list_filename
         else:
-            return None, None
+            return None
 
 
     def open_file_dialog_target_file(self): #target file böngészés
@@ -80,15 +81,15 @@ class Ui_JohnWindow(object):
             target_file = dialog.selectedFiles()[0]
             # Split the filename and path
             target_file_path, target_file_name = os.path.split(target_file)
-            if target_file is None:
+            if target_file_name is None:
                 print("Nem választottál")
             self.textBrowser_target_file.setPlainText(target_file)
             tf = open(target_file, "r")
             #print(tf.read())
             #tf.close()
-            return target_file_path, target_file_name
+            return target_file_name
         else:
-            return None, None
+            return None
     def setupUi(self, JohnWindow):
         JohnWindow.setObjectName("JohnWindow")
         JohnWindow.resize(551, 538)
