@@ -14,6 +14,8 @@ from output_window import Ui_Output
 class Ui_JohnWindow(object):
     password_list_filename = None
     target_filename = None
+    target_file = ""
+
     def __init__(self):
         self.setText = None
         self.windows = [self]
@@ -31,10 +33,12 @@ class Ui_JohnWindow(object):
     def command(self) -> object: #a parancs összeállítása
         a = ""
         print(self.password_list_filename)
+        print("self.target_filename", self.target_file)
         if self.password_list_filename is not None:
             a = "--wordlist=" + self.password_list_filename
-        print("john " + self.textEdit_options.toPlainText() + a)
-        return "john " + self.textEdit_options.toPlainText() + a
+        print("john " + self.textEdit_options.toPlainText() + " " + a + " " + self.target_file)
+        print("self.target_file", self.target_file)
+        return "john " + self.textEdit_options.toPlainText() + " " + a + " " + self.target_file
 
 
     def openOutput(self, szoveg=None): #output ablak megnyitása
@@ -57,19 +61,19 @@ class Ui_JohnWindow(object):
         dialog.setNameFilter("Text files (*.txt)")
         dialog.setViewMode(QFileDialog.ViewMode.List)
         if dialog.exec_() == QDialog.Accepted:
-            password_list_filename = dialog.selectedFiles()[0]
+            print("dialog.selectedFiles()[0] ", dialog.selectedFiles()[0])
+            self.password_list_filename = dialog.selectedFiles()[0]
             # Split the filename and path
-            password_list_path, password_list_file = os.path.split(password_list_filename)
-            if password_list_filename is None:
+            password_list_path, password_list_file = os.path.split(self.password_list_filename)
+            if self.password_list_filename is None:
                 print("Nem választottál")
-            self.textBrowser_password_list.setPlainText(password_list_filename)
-            pl = open(password_list_filename, "r")
+            self.textBrowser_password_list.setPlainText(self.password_list_filename)
+            pl = open(self.password_list_filename, "r")
             #print(pl.read())
             #pl.close()
-            return password_list_filename
+            return self.password_list_filename
         else:
             return None
-
 
     def open_file_dialog_target_file(self): #target file böngészés
         dialog = QFileDialog()
@@ -78,16 +82,16 @@ class Ui_JohnWindow(object):
         dialog.setNameFilter("Text files (*.txt)")
         dialog.setViewMode(QFileDialog.ViewMode.List)
         if dialog.exec_() == QDialog.Accepted:
-            target_file = dialog.selectedFiles()[0]
+            self.target_file = dialog.selectedFiles()[0]
             # Split the filename and path
-            target_file_path, target_file_name = os.path.split(target_file)
+            target_file_path, target_file_name = os.path.split(self.target_file)
             if target_file_name is None:
                 print("Nem választottál")
-            self.textBrowser_target_file.setPlainText(target_file)
-            tf = open(target_file, "r")
+            self.textBrowser_target_file.setPlainText(self.target_file)
+            tf = open(self.target_file, "r")
             #print(tf.read())
             #tf.close()
-            return target_file_name
+            return self.target_file
         else:
             return None
     def setupUi(self, JohnWindow):
