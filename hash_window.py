@@ -6,26 +6,37 @@ from PyQt5.QtCore import QDir
 from PyQt5.QtWidgets import QFileDialog, QPushButton, QDialog
 from pathlib import Path
 from PyQt5.QtWidgets import QApplication, QLabel
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QColor
 from output_window import Ui_Output
-from PyQt5.QtGui import QPixmap, QColor
 
 
 class Ui_HashCatWindow(object):
     wordlist_filename = ""
-    hashfile = ""
+    hash_file = ""
     def __init__(self):
+        self.setText = None
         self.textBrowser_wordlist = None
         self.windows = [self]
         self.im = "./peakpx_other.jpg"
 
 
     def futtatas(self, parancslista):  # a parancs meghívása
-        #print(parancslista)
-        process = subprocess.Popen(["hashcat", parancslista], stdout=subprocess.PIPE)
-        output = process.communicate()
-        print(output)
+        parancslista = parancslista.split()
+        output = subprocess.check_output(parancslista)
+        # print(output)
         output = output.decode('utf-8')
         self.openOutput(output)
+
+    def command(self) -> object:  # a parancs összeállítása
+        a = ""
+        print("self.wordlist_filename", self.wordlist_filename)
+        if self.wordlist_filename is not None:
+            a = self.wordlist_filename
+        #print("a", a)
+        #print("hashcat " + self.textEdit_options.toPlainText() + " " + self.hash_file + " " + a)
+        # print("self.target_file", self.target_file)
+        return "hashcat " + self.textEdit_options.toPlainText() + " " + self.hash_file + " " + a
 
     def openOutput(self, szoveg=None): #output ablak megnyitása
         szoveg = szoveg.splitlines()
@@ -46,18 +57,18 @@ class Ui_HashCatWindow(object):
         dialog.setNameFilter("Text files (*.txt)")
         dialog.setViewMode(QFileDialog.ViewMode.List)
         if dialog.exec_() == QDialog.Accepted:
-            hash_file = dialog.selectedFiles()[0]
+            self.hash_file = dialog.selectedFiles()[0]
             # Split the filename and path
-            hash_path, hash_filename = os.path.split(hash_file)
-            if hash_file is None:
+            self.hash_path, self.hash_filename = os.path.split(self.hash_file)
+            if self.hash_file is None:
                 print("Nem választottál")
-            self.textBrowser_hashfile.setPlainText(hash_file)
-            hs = open(hash_file, "r")
-            print(hs.read())
+            self.textBrowser_hashfile.setPlainText(self.hash_file)
+            hs = open(self.hash_file, "r")
+            #print(hs.read())
             #pl.close()
-            return hash_path, hash_filename
+            return self.hash_file
         else:
-            return None, None
+            return None
 
 
     def open_file_dialog_wordlist(self): #wordlist file kitallózása
@@ -67,18 +78,18 @@ class Ui_HashCatWindow(object):
         dialog.setNameFilter("Text files (*.txt)")
         dialog.setViewMode(QFileDialog.ViewMode.List)
         if dialog.exec_() == QDialog.Accepted:
-            wordlist_file = dialog.selectedFiles()[0]
+            self.wordlist_filename = dialog.selectedFiles()[0]
             # Split the filename and path
-            wordlist_file_path, wordlist_file_name = os.path.split(wordlist_file)
-            if wordlist_file is None:
+            self.wordlist_file_path, self.wordlist_file_name = os.path.split(self.wordlist_filename)
+            if self.wordlist_filename is None:
                 print("Nem választottál")
-            self.textBrowser_wordlist.setPlainText(wordlist_file)
-            wl = open(wordlist_file, "r")
-            print(wl.read())
+            self.textBrowser_wordlist.setPlainText(self.wordlist_filename)
+            wl = open(self.wordlist_filename, "r")
+            #print(wl.read())
             #tf.close()
-            return wordlist_file_path, wordlist_file_name
+            return self.wordlist_filename
         else:
-            return None, None
+            return None
     def setupUi(self, HashCatWindow):
         wordlist_filename = ""
         HashCatWindow.setObjectName("HashCatWindow")
@@ -146,7 +157,7 @@ class Ui_HashCatWindow(object):
         self.pushButton_browse_wordlist.clicked.connect(self.open_file_dialog_wordlist) #wordlist tallózás megnyitása
 
         self.pushButton_hashcat.clicked.connect(
-            lambda: self.futtatas(wordlist_filename)) #parancs futtatás metódus meghívása
+            lambda: self.futtatas(self.command())) #a parancs meghívása
 
         self.retranslateUi(HashCatWindow)
         self.pushButton_quit.clicked.connect(HashCatWindow.close) # type: ignore

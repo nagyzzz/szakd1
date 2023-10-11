@@ -25,19 +25,19 @@ class Ui_JohnWindow(object):
     def futtatas(self, parancslista):
         parancslista = parancslista.split()
         output = subprocess.check_output(parancslista)
-        print(output)
+        #print(output)
         output = output.decode('utf-8')
         self.openOutput(output)
 
 
     def command(self) -> object: #a parancs összeállítása
         a = ""
-        print(self.password_list_filename)
-        print("self.target_filename", self.target_file)
+        #print(self.password_list_filename)
+        #print("self.target_filename", self.target_file)
         if self.password_list_filename is not None:
             a = "--wordlist=" + self.password_list_filename
-        print("john " + self.textEdit_options.toPlainText() + " " + a + " " + self.target_file)
-        print("self.target_file", self.target_file)
+        #print("john " + self.textEdit_options.toPlainText() + " " + a + " " + self.target_file)
+        #print("self.target_file", self.target_file)
         return "john " + self.textEdit_options.toPlainText() + " " + a + " " + self.target_file
 
 
@@ -64,7 +64,7 @@ class Ui_JohnWindow(object):
             print("dialog.selectedFiles()[0] ", dialog.selectedFiles()[0])
             self.password_list_filename = dialog.selectedFiles()[0]
             # Split the filename and path
-            password_list_path, password_list_file = os.path.split(self.password_list_filename)
+            self.password_list_path, self.password_list_file = os.path.split(self.password_list_filename)
             if self.password_list_filename is None:
                 print("Nem választottál")
             self.textBrowser_password_list.setPlainText(self.password_list_filename)
