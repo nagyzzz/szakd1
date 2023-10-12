@@ -1,15 +1,11 @@
 import os
 import subprocess
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDir
 from PyQt5.QtWidgets import QFileDialog, QPushButton, QDialog
-from pathlib import Path
 from PyQt5.QtWidgets import QApplication, QLabel
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtGui import QColor
 from output_window import Ui_Output
-
 
 class Ui_JohnWindow(object):
     password_list_filename = None
@@ -25,32 +21,24 @@ class Ui_JohnWindow(object):
     def futtatas(self, parancslista):
         parancslista = parancslista.split()
         output = subprocess.check_output(parancslista)
-        #print(output)
         output = output.decode('utf-8')
         self.openOutput(output)
 
 
     def command(self) -> object: #a parancs összeállítása
         a = ""
-        #print(self.password_list_filename)
-        #print("self.target_filename", self.target_file)
         if self.password_list_filename is not None:
             a = "--wordlist=" + self.password_list_filename
-        #print("john " + self.textEdit_options.toPlainText() + " " + a + " " + self.target_file)
-        #print("self.target_file", self.target_file)
         return "john " + self.textEdit_options.toPlainText() + " " + a + " " + self.target_file
 
 
     def openOutput(self, szoveg=None): #output ablak megnyitása
-        #szoveg = ''.join(szoveg)
         szoveg = szoveg.splitlines()
         szoveg = '\n'.join(szoveg)
         window = QtWidgets.QMainWindow()
         self.ui = Ui_Output()
         self.ui.setupUi(window)
         self.ui.textBrowser.setText(szoveg)
-        #self.ui.textBrowser.setText(szoveg.encode('utf-8').decode('utf-8'))
-        #self.ui.textBrowser.setText(str(szoveg.encode("utf-8")))
         window.show()
         self.windows.append(window)
 
@@ -63,14 +51,11 @@ class Ui_JohnWindow(object):
         if dialog.exec_() == QDialog.Accepted:
             print("dialog.selectedFiles()[0] ", dialog.selectedFiles()[0])
             self.password_list_filename = dialog.selectedFiles()[0]
-            # Split the filename and path
             self.password_list_path, self.password_list_file = os.path.split(self.password_list_filename)
             if self.password_list_filename is None:
                 print("Nem választottál")
             self.textBrowser_password_list.setPlainText(self.password_list_filename)
             pl = open(self.password_list_filename, "r")
-            #print(pl.read())
-            #pl.close()
             return self.password_list_filename
         else:
             return None
@@ -83,14 +68,11 @@ class Ui_JohnWindow(object):
         dialog.setViewMode(QFileDialog.ViewMode.List)
         if dialog.exec_() == QDialog.Accepted:
             self.target_file = dialog.selectedFiles()[0]
-            # Split the filename and path
             target_file_path, target_file_name = os.path.split(self.target_file)
             if target_file_name is None:
                 print("Nem választottál")
             self.textBrowser_target_file.setPlainText(self.target_file)
             tf = open(self.target_file, "r")
-            #print(tf.read())
-            #tf.close()
             return self.target_file
         else:
             return None
@@ -140,7 +122,6 @@ class Ui_JohnWindow(object):
         self.textBrowser_password_list = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser_password_list.setGeometry(QtCore.QRect(180, 220, 321, 51))
         self.textBrowser_password_list.setObjectName("textBrowser_password_list")
-        #self.textBrowser_password_list.setPlainText(password_list_filename)
         self.textBrowser_target_file = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser_target_file.setGeometry(QtCore.QRect(180, 300, 321, 51))
         self.textBrowser_target_file.setObjectName("textBrowser_target_file")
@@ -155,7 +136,7 @@ class Ui_JohnWindow(object):
         JohnWindow.setStatusBar(self.statusbar)
 
         self.background_label = QLabel(JohnWindow)
-        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # Adjust the dimensions as needed
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # háttérkép méreténel beállítása
         self.background_label.setPixmap(QPixmap(self.im))
         self.background_label.setScaledContents(True)
         self.background_label.lower()

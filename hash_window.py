@@ -1,15 +1,11 @@
 import os
 import subprocess
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QDir
 from PyQt5.QtWidgets import QFileDialog, QPushButton, QDialog
-from pathlib import Path
 from PyQt5.QtWidgets import QApplication, QLabel
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtGui import QColor
 from output_window import Ui_Output
-
 
 class Ui_HashCatWindow(object):
     wordlist_filename = ""
@@ -33,9 +29,6 @@ class Ui_HashCatWindow(object):
         print("self.wordlist_filename", self.wordlist_filename)
         if self.wordlist_filename is not None:
             a = self.wordlist_filename
-        #print("a", a)
-        #print("hashcat " + self.textEdit_options.toPlainText() + " " + self.hash_file + " " + a)
-        # print("self.target_file", self.target_file)
         return "hashcat " + self.textEdit_options.toPlainText() + " " + self.hash_file + " " + a
 
     def openOutput(self, szoveg=None): #output ablak megnyitása
@@ -45,8 +38,6 @@ class Ui_HashCatWindow(object):
         self.ui = Ui_Output()
         self.ui.setupUi(window)
         self.ui.textBrowser.setText(szoveg)
-        #self.ui.textBrowser.setText(szoveg.encode('utf-8').decode('utf-8'))
-        #self.ui.textBrowser.setText(str(szoveg.encode("utf-8")))
         window.show()
         self.windows.append(window)
 
@@ -64,8 +55,6 @@ class Ui_HashCatWindow(object):
                 print("Nem választottál")
             self.textBrowser_hashfile.setPlainText(self.hash_file)
             hs = open(self.hash_file, "r")
-            #print(hs.read())
-            #pl.close()
             return self.hash_file
         else:
             return None
@@ -79,14 +68,11 @@ class Ui_HashCatWindow(object):
         dialog.setViewMode(QFileDialog.ViewMode.List)
         if dialog.exec_() == QDialog.Accepted:
             self.wordlist_filename = dialog.selectedFiles()[0]
-            # Split the filename and path
             self.wordlist_file_path, self.wordlist_file_name = os.path.split(self.wordlist_filename)
             if self.wordlist_filename is None:
                 print("Nem választottál")
             self.textBrowser_wordlist.setPlainText(self.wordlist_filename)
             wl = open(self.wordlist_filename, "r")
-            #print(wl.read())
-            #tf.close()
             return self.wordlist_filename
         else:
             return None
@@ -148,7 +134,7 @@ class Ui_HashCatWindow(object):
         HashCatWindow.setStatusBar(self.statusbar)
 
         self.background_label = QLabel(HashCatWindow)
-        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # Adjust the dimensions as needed
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # háttérkép méretének beállítása
         self.background_label.setPixmap(QPixmap(self.im))
         self.background_label.setScaledContents(True)
         self.background_label.lower()
@@ -160,7 +146,7 @@ class Ui_HashCatWindow(object):
             lambda: self.futtatas(self.command())) #a parancs meghívása
 
         self.retranslateUi(HashCatWindow)
-        self.pushButton_quit.clicked.connect(HashCatWindow.close) # type: ignore
+        self.pushButton_quit.clicked.connect(HashCatWindow.close)
         QtCore.QMetaObject.connectSlotsByName(HashCatWindow)
 
     def retranslateUi(self, HashCatWindow):

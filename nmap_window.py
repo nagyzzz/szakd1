@@ -1,9 +1,8 @@
 import subprocess
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QPushButton, QLabel, QTextEdit, QCheckBox
+from PyQt5.QtWidgets import QPushButton, QLabel
 from output_window import Ui_Output
 from PyQt5.QtGui import QPixmap, QColor
-
 
 class Ui_NmapWindow(object):
     pushButton_nmap: QPushButton
@@ -14,29 +13,18 @@ class Ui_NmapWindow(object):
         self.im = "./peakpx_other.jpg"
 
     def futtatas(self, jelszo, parancslista):  #a parancs meghívása
-        #print(jelszo)
-        #print(parancslista)
         sudoPasswd = subprocess.Popen(["echo", jelszo], stdout=subprocess.PIPE)
         parancslista = parancslista.split()
         output = subprocess.check_output(["sudo", "-S", "-k"] + parancslista, stdin=sudoPasswd.stdout)
         print(output)
-        #szoveg = print(output)
-        #output = str(output)
         output = output.decode('utf-8')
-        #output = output.splitlines()
         self.openOutput(output)
 
     def openOutput(self, szoveg=None): #output ablak megnyitása
-        #szoveg = szoveg.splitlines()
-        #szoveg = '\n'.join(szoveg)
         window = QtWidgets.QMainWindow()
         self.ui = Ui_Output()
         self.ui.setupUi(window)
         self.ui.textBrowser.setText(szoveg)
-        #self.ui.textBrowser.setText(szoveg.encode('utf-8').decode('utf-8'))
-        #self.ui.textBrowser.setText(str(szoveg.encode('utf-8')))
-        #self.ui.textBrowser.setText(str(szoveg.encode("utf-8")))
-        #self.ui.textBrowser.setText(str(szoveg.encode("ascii")))
         normal_string = szoveg
         self.ui.textBrowser.setText(normal_string)
 
@@ -52,7 +40,7 @@ class Ui_NmapWindow(object):
         if self.checkBox_sS.isChecked():
             sS = "-sS "
         return "nmap " + sC + sS + self.textEdit_options.toPlainText() + " " + self.textEdit_target_ip.toPlainText()
-        #return "nmap " + self.textEdit_target_ip.toPlainText()
+
     def setupUi(self, NmapWindow):
         NmapWindow.setObjectName("NmapWindow")
         NmapWindow.resize(551, 538)
@@ -115,13 +103,13 @@ class Ui_NmapWindow(object):
         NmapWindow.setStatusBar(self.statusbar)
 
         self.background_label = QLabel(NmapWindow)
-        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # Adjust the dimensions as needed
+        self.background_label.setGeometry(QtCore.QRect(0, 0, 551, 538))  # háttérkép méretének beállítása
         self.background_label.setPixmap(QPixmap(self.im))
         self.background_label.setScaledContents(True)
         self.background_label.lower()
 
         self.retranslateUi(NmapWindow)
-        self.pushButton_quit.clicked.connect(NmapWindow.close) # type: ignore
+        self.pushButton_quit.clicked.connect(NmapWindow.close)
         QtCore.QMetaObject.connectSlotsByName(NmapWindow)
 
         self.pushButton_nmap.clicked.connect(
