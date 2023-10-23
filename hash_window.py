@@ -6,6 +6,9 @@ from PyQt5.QtWidgets import QApplication, QLabel
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtGui import QColor
 from output_window import Ui_Output
+from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QProgressBar
+
 
 class Ui_HashCatWindow(object):
     wordlist_filename = ""
@@ -107,6 +110,7 @@ class Ui_HashCatWindow(object):
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(60, 270, 151, 31))
         self.label_3.setObjectName("label_3")
+
 
         self.label.setStyleSheet("color: {}".format(text_color.name()))
         self.label_2.setStyleSheet("color: {}".format(text_color.name()))
